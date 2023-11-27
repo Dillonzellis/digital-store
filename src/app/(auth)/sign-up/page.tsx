@@ -24,11 +24,10 @@ const Page = () => {
     resolver: zodResolver(AuthCredentialsValidator),
   });
 
-  const { data } = trpc.anyApiRoute.useQuery();
-  console.log(data);
+  const { mutate, isLoading } = trpc.auth.createPayloadUser.useMutation({});
 
   const onSubmit = ({ email, password }: TAuthCredentialsValidator) => {
-    // TODO: send data to the server
+    mutate({ email, password });
   };
 
   return (
@@ -67,6 +66,7 @@ const Page = () => {
                 <div className="grid gap-1 py-2">
                   <Label htmlFor="email">Password</Label>
                   <Input
+                    type="password"
                     {...register("password")}
                     className={cn({
                       "focus-visible:ring-red-500": errors.password,
