@@ -4,9 +4,13 @@ import { MaxWidthWrapper } from "./MaxWidthWrapper";
 import { NavItems } from "./NavItems";
 import { buttonVariants } from "./ui/button";
 import { Cart } from "./Cart";
+import { getServerSideUser } from "@/lib/payload-utils";
+import { cookies } from "next/headers";
+import UserAccountNav from "./UserAccountNav";
 
-export const Navbar = () => {
-  const user = null;
+export const Navbar = async () => {
+  const nextCookies = cookies();
+  const { user } = await getServerSideUser(nextCookies);
 
   return (
     <div className="sticky inset-x-0 top-0 z-50 h-16 bg-white">
@@ -27,7 +31,9 @@ export const Navbar = () => {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  {user ? null : (
+                  {user ? (
+                    <UserAccountNav user={user} />
+                  ) : (
                     <Link
                       href="/sign-in"
                       className={buttonVariants({ variant: "ghost" })}
