@@ -8,7 +8,7 @@ import { getServerSideUser } from "@/lib/payload-utils";
 import { cookies } from "next/headers";
 import UserAccountNav from "./UserAccountNav";
 
-export const Navbar = async () => {
+const Navbar = async () => {
   const nextCookies = cookies();
   const { user } = await getServerSideUser(nextCookies);
 
@@ -82,3 +82,5 @@ export const Navbar = async () => {
     </div>
   );
 };
+
+export default Navbar;
