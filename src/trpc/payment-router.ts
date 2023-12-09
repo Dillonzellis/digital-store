@@ -40,6 +40,13 @@ export const paymentRouter = router({
 
       const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
 
+      filterProducts.forEach((product) => {
+        line_items.push({
+          price: product.priceId,
+          quantity: 1,
+        });
+      });
+
       line_items.push({
         price: "price_1OL76TGUOqJW4CNNBA8AXTcY",
         quantity: 1,
