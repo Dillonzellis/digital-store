@@ -27,23 +27,23 @@ export const paymentRouter = router({
         },
       });
 
-      const filterProducts = products.filter((prod) => Boolean(prod.priceId));
+      const filteredProducts = products.filter((prod) => Boolean(prod.priceId));
 
       const order = await payload.create({
         collection: "orders",
         data: {
           _isPaid: false,
-          products: filterProducts,
+          products: filteredProducts.map((prod) => prod.id),
           user: user.id,
         },
       });
 
       const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
 
-      filterProducts.forEach((product) => {
+      filteredProducts.forEach((product) => {
         line_items.push({
-          price: product.priceId,
           quantity: 1,
+          price: product.priceId! as string,
         });
       });
 
@@ -67,6 +67,11 @@ export const paymentRouter = router({
           },
           line_items,
         });
-      } catch (err) {}
+        return { url: stripeSession.url };
+      } catch (err) {
+        console.log(err);
+
+        return { url: null };
+      }
     }),
 });
