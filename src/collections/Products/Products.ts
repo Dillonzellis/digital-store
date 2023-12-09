@@ -1,7 +1,4 @@
-import {
-  AfterChangeHook,
-  BeforeChangeHook,
-} from "payload/dist/collections/config/types";
+import { BeforeChangeHook } from "payload/dist/collections/config/types";
 import { PRODUCT_CATEGORIES } from "../../config";
 import { CollectionConfig } from "payload/types";
 import { Product } from "../../payload-types";
@@ -19,6 +16,7 @@ export const Products: CollectionConfig = {
     useAsTitle: "name",
   },
   access: {},
+
   hooks: {
     beforeChange: [
       addUser,
@@ -60,6 +58,7 @@ export const Products: CollectionConfig = {
       },
     ],
   },
+
   fields: [
     {
       name: "user",
