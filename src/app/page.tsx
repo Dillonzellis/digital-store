@@ -36,7 +36,7 @@ export default function Home() {
           </h1>
           <p className="mt-6 max-w-prose text-lg text-muted-foreground">
             Welcome to Digital Store. Every asset on our platform is verified by
-            our own team to ensure our highest quality standards.
+            our own team to ensure our highest quality standards..
           </p>
           <div className="mt-6 flex flex-col gap-4 sm:flex-row">
             <Link href="/products" className={buttonVariants()}>
